@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="v1"></div>
+  <!-- //react核心库 -->
+<script type="text/javascript" src="./js/react.development.js"></script>
+<!-- react操作DOM库 -->
+<script type="text/javascript" src="./js/react-dom.development.js"></script>
+<!-- 解析JSX库 -->
+<script type="text/javascript" src="./js/babel.min.js"></script>
+<!-- 让babel解析JSX为JS -->
+<!-- <script type="text/babel">
+  let VDOM  = <h1>Hello React</h1>
+  debugger;
+  ReactDOM.render(VDOM,document.getElementById('v1'))//会把虚拟DOM 放在容器内部
+  console.log(VDOM)
+  console.log(VDOM instanceof Object)
+  console.log(typeof VDOM)
+</script> -->
+
+<!-- 原生JS创建虚拟DOM -->
+<script type="text/javascript">
+                                // 标签名，标签属性，标签内容,对象里面属性名属性值之间是：
+let VDOM1 = React.createElement('h2',{id:'s1',},'hello,React')
+ReactDOM.render(VDOM1,document.getElementById('v1'))
+
+</script>
+  
+</body>
+</html>
