@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+  .title{
+    background-color: pink;
+  }
+  </style>
+</head>
+<body>
+  <div id='box'></div>
+
+  <script type="text/javascript" src="./js/react.development.js"></script>
+  <script type="text/javascript" src="./js/react-dom.development.js"></script>
+  <script type="text/javascript" src="./js/babel.min.js"></script>
+
+  <!--jsx -->
+  <script type="text/babel">
+    let me = '小草儿'
+    let VDOM = (
+      <div>
+        <input type="text"/>
+      <h2>
+      <span style = {{color:'red'}} className = 'title'>{me}说：hello,react</span>
+      </h2></div>
+      )
+    ReactDOM.render(VDOM,document.getElementById('box'));
+    // 2.标签里想写js表达式，要用{}
+    // 3.style样式要写成：style={{color:'red'}}。style样式写成对象的形式，
+    //一个花括号表示要写JS语法，第2个花括号才表示对象，所以花括号其那套
+  </script>
+
+<!-- js -->
+<!-- <script>
+  //对象里面属性值和属性名之间是冒号，键值对之间是逗号,颜色是字符串
+  let VDOM = React.createElement('h2',{},React.createElement('span',{style:{color:'red'},id:'xiao'},'hello,react'))
+  ReactDOM.render(VDOM,document.getElementById('box'))
+
+</script> -->
+</body>
+</html>
