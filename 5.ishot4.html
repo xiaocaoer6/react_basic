@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>简写方式</title>
+</head>
+
+<body>
+  <div id='box'></div>
+  <script type="text/javascript" src="./js/react.development.js"></script>
+  <script type="text/javascript" src="./js/react-dom.development.js"></script>
+  <script type="text/javascript" src="./js/babel.min.js"></script>
+
+  <script type="text/babel">
+  //简写方式再来一次
+  class Weather extends React.Component{
+    //往实例state上添加属性
+    state = {isHot:true}
+    //render虚拟DOM
+    render(){
+      return <h2 onClick = {this.changeHot}>今天天气{this.state.isHot ? "炎热" : "凉爽"}</h2>
+    }
+    //定义事件回调函数
+    changeHot = ()=>{
+      let isHot = !this.state.isHot
+      //state属性不能直接去改
+      this.setState({isHot})
+    }
+  }
+
+  //渲染组件到页面
+  ReactDOM.render(<Weather/>,document.getElementById('box'))
+  
+  </script>
+</body>
+
+</html>

@@ -1,27 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>案例初级实现-改变state的函数在类外部，靠that变量传递this</title>
 </head>
+
 <body>
   <div id='box'></div>
   <script type="text/javascript" src="./js/react.development.js"></script>
   <script type="text/javascript" src="./js/react-dom.development.js"></script>
   <script type="text/javascript" src="./js/babel.min.js"></script>
-  
+
   <script type="text/babel">
+    //思路：通过更新组件实例的state属性中的ishot来改变页面的内容
+    //在组件的实例state中添加ishot属性，类往实例中添加属性，构造器
+    //绑定单击事件，单击时改变ishot的值，实现页面变化
+
   // 定义类组件
+
+  let that;
   class Weather extends React.Component{
+    constructor(...params){//将React，new Weather时的参数全部接收打包为数组
+      super(...params)//将该数组解包传给super，实现所有属性的继承
+      // console.log(...params)//空对象，
+      console.log(this)
+      this.state = {ishot: true};//往实例身上直接添加属性
+    }
     render(){ 
-      return <h2>今天天气很炎热</h2>
+      that = this
+      return <h2 onClick={changeHot}>今天天气很{this.state.ishot ?'炎热':'凉爽'}</h2>
     }
   }
+
   //渲染类组件到页面
   ReactDOM.render(<Weather/>,document.getElementById('box'))
-  
+    //定义绑定事件的函数
+   function changeHot(){
+      console.log(that)
+      //babel中普通函数中的this是undefined
+      //更改实例state上的ishot为相反值
+      //state不能直接更改
+      let ishot = !that.state.ishot 
+      that.setState({ishot})
+  }
   </script>
 </body>
+
 </html>

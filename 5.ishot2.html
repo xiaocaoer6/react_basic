@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>案例中级实现-changeHot函数在组件内部，使用bind方法</title>
+</head>
+
+<body>
+  <div id='box'></div>
+  <script type="text/javascript" src="./js/react.development.js"></script>
+  <script type="text/javascript" src="./js/react-dom.development.js"></script>
+  <script type="text/javascript" src="./js/babel.min.js"></script>
+
+  <script type="text/babel">
+    //changeHot函数在组件内部，但其内部this被react改为undefined,
+    //使用bind方法,按照事件回调函数生成新的函数，并将新函数的this改为实例本身
+    // 注意：不是说将方法放在实例上，方法的this就是实例了
+
+    //函数点bind方法做了什么？
+    //1.按照这个函数生成新的一样的函数
+    //2.再将新函数的this指向改为调用时括号内的东西
+
+    // 定义类组件
+    class Weather extends React.Component {
+      constructor(...params) {
+        super(...params)
+        this.state = { ishot: true };
+        this.changeHot = this.changeHot.bind(this)
+        //A.bind（B）方法，返回一个新的函数，函数体和A相同，但是this指向变为了B
+      }
+      render() {
+        return <h2 onClick={this.changeHot}>今天天气很 { this.state.ishot ? '炎热' : '凉爽'}</h2>
+      }
+      changeHot() {
+        // console.log(this) //undefined
+        let ishot = !this.state.ishot
+        this.setState({ ishot })
+      }
+    }
+    //渲染类组件到页面
+    ReactDOM.render(<Weather />, document.getElementById('box'))
+
+  </script>
+</body>
+
+</html>

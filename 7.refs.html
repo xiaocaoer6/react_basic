@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>输入东西弹框案例</title>
+</head>
+
+<body>
+  <div id="box"></div>
+  <script type="text/javascript" src="./js/react.development.js"></script>
+  <script type="text/javascript" src="./js/react-dom.development.js"></script>
+  <script type="text/javascript" src="./js/babel.min.js"></script>
+
+  <script type="text/babel">
+
+//1.字符串ref，往实例的refs属性中添加属性，记录节点
+    // class Mycomponent extends React.Component {
+     
+    //   // 不能自己操作DOM
+    //   // handleClick = () => {
+    //   //  let in1 = document.getElementById('input1')
+    //   //   alert(in1.value)
+    //   // }
+
+    //   handleClick = () => {
+    //     console.log(this)//实例身上有refs属性，值为对象
+    //     let v1 = this.refs.input1.value
+    //     alert(v1)
+    //   }
+    //   handleBlur = (event) => {
+    //     console.log(event)//直接打印event,其中target属性是null,看不到
+    //     console.log(event.target)//可以看到
+    //     alert(event.target.value)
+    //   }
+    //   //ref不能过度使用
+    //   render() {
+    //     return (
+    //       <div>
+    //         <input type="text" ref="input1" placeholder = "请输入想要弹出的内容"/>&nbsp;
+    //         <input onClick = {this.handleClick} type="submit" value="点我提示左侧的输入内容"/>&nbsp;
+    //         <input onBlur = {this.handleBlur}  type="text" placeholder = "点我失去焦点"/>
+    //       </div>
+    //     )
+    //   }
+
+    // }
+    // ReactDOM.render(<Mycomponent/>,document.getElementById('box'))
+
+//2.回调的ref。利用rrf回调，往实例自身上添加属性，存储节点
+class Mycomponent extends React.Component {
+     handleClick = () => {
+       console.log(this)//实例身上有refs属性，值为对象
+       alert(this.input1.value)
+     }
+     handleBlur = (event) => {
+       alert(event.target.value)
+     }
+     render() {
+       return (
+         <div>
+           <input type="text" ref={(currentNode) => {this.input1 = currentNode}} placeholder = "请输入想要弹出的内容"/>&nbsp;
+           <input onClick = {this.handleClick} type="submit" value="点我提示左侧的输入内容"/>&nbsp;
+           <input onBlur = {this.handleBlur}  type="text" placeholder = "点我失去焦点"/>
+         </div>
+       )
+     }
+
+   }
+   ReactDOM.render(<Mycomponent/>,document.getElementById('box'))
+   //容器ref
+   class Mycomponent extends React.Component {
+     handleClick = () => {
+       console.log(this)//实例身上有refs属性，值为对象
+       alert(this.input1.value)
+     }
+     handleBlur = (event) => {
+       alert(event.target.value)
+     }
+     render() {
+       return (
+         <div>
+           <input type="text" ref={(currentNode) => {this.input1 = currentNode}} placeholder = "请输入想要弹出的内容"/>&nbsp;
+           <input onClick = {this.handleClick} type="submit" value="点我提示左侧的输入内容"/>&nbsp;
+           <input onBlur = {this.handleBlur}  type="text" placeholder = "点我失去焦点"/>
+         </div>
+       )
+     }
+
+   }
+   ReactDOM.render(<Mycomponent/>,document.getElementById('box'))
+  </script>
+
+</body>
+
+</html>

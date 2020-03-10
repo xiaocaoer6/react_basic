@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>简写方式</title>
+</head>
+
+<body>
+  <div id='box'></div>
+  <script type="text/javascript" src="./js/react.development.js"></script>
+  <script type="text/javascript" src="./js/react-dom.development.js"></script>
+  <script type="text/javascript" src="./js/babel.min.js"></script>
+
+  <script type="text/babel">
+  //简写：构造器函数内容被替换为赋值语句
+
+    // 定义类组件
+    class Weather extends React.Component {
+      state = { ishot: true };
+      // changeHot = this.changeHot.bind(this)
+      render() {
+        return <h2 onClick={this.changeHot}>今天天气很 { this.state.ishot ? '炎热' : '凉爽'}</h2>
+      }
+      changeHot = ()=>{
+        let ishot = !this.state.ishot
+        this.setState({ ishot })
+      }
+    }
+    //渲染类组件到页面
+    ReactDOM.render(<Weather />, document.getElementById('box'))
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>组件实例的第二大属性props</title>
+</head>
+
+<body>
+  <div id="box"></div>
+  <div id="box2"></div>
+  <script type="text/javascript" src="./js/react.development.js"></script>
+  <script type="text/javascript" src="./js/react-dom.development.js"></script>
+  <script type="text/javascript" src="./js/babel.min.js"></script>
+  <script type="text/javascript" src="./js/prop-types.js"></script>
+
+  <script type="text/babel">
+    //设置props限制
+		/* 
+			要限制标签属性值的：类型、必要性
+				1). 姓名必须指定，且为字符串类型；
+				2). 性别必须指定,且为字符串类型；
+				3). 年龄如果年龄没有指定, 默认为18
+		 */
+    class Person extends React.Component {
+         //给类上添加propTypes,属性，设置设置标签属性限制，React底层会自动去读这个，如果没有就没有限制
+    static propTypes = {
+      name:PropTypes.string.isRequired,
+      gender:PropTypes.string.isRequired,
+    }
+    //默认标签属性
+    static defaultProps = {
+      age:18
+    }
+
+      render() {
+        const { name,age,gender} = this.props
+        return (
+            <ul>
+              <li>姓名：{name}</li>
+              <li>年龄：{age+1}</li>
+              <li>性别：{gender}</li>
+            </ul>
+        )
+      }
+    }
+ 
+    let p1 = {
+      name:"小韩",
+      age:20,
+      gender:"男",
+      phone:"18519175753"
+    }
+    //渲染组件到页面
+    ReactDOM.render(<Person name="小梅"  gender = "女" />, document.getElementById('box'))
+    ReactDOM.render(<Person {...p1} />, document.getElementById('box2'))
+
+    //小案例
+    //定义组件
+    // class Person extends React.Component {
+    //   render() {
+    //     const { name,age,gender} = this.props
+    //     return (
+    //         <ul>
+    //           <li>姓名：{name}</li>
+    //           <li>年龄：{age}</li>
+    //           <li>性别：{gender}</li>
+    //         </ul>
+    //     )
+    //   }
+    // }
+    // let p1 = {
+    //   name:"小韩",
+    //   age:18,
+    //   gender:"男",
+    //   phone:"18519175753"
+    // }
+    // //渲染组件到页面
+    // ReactDOM.render(<Person name="小梅" age = {18} gender = "女" />, document.getElementById('box'))
+    // ReactDOM.render(<Person {...p1} />, document.getElementById('box2'))
+
+
+
+  </script>
+
+</body>
+
+</html> 

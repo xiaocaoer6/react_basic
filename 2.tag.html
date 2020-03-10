@@ -25,13 +25,15 @@
       <div>
         <input type="text"/>
       <h2>
-      <span style = {{color:'red'}} className = 'title'>{me}说：hello,react</span>
+      <span style = {{color:'blue',fontSize:'30px'}} className = 'title'>{me}说：hello,react</span>
       </h2></div>
       )
     ReactDOM.render(VDOM,document.getElementById('box'));
-    // 2.标签里想写js表达式，要用{}
-    // 3.style样式要写成：style={{color:'red'}}。style样式写成对象的形式，
-    //一个花括号表示要写JS语法，第2个花括号才表示对象，所以花括号其那套
+   
+    // 标签里想写js表达式，要用{}
+    // style样式要写成对象的形式，对象是JS语法，先写一个花括号，又是一个对象，再来一个花括号，故花括号嵌套：
+    // style={{color:'red',font-size:'30px'}}
+
   </script>
 
 <!-- js -->

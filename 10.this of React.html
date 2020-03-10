@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id='box'></div>
+  <script type="text/javascript" src="./js/react.development.js"></script>
+  <script type="text/javascript" src="./js/react-dom.development.js"></script>
+  <script type="text/javascript" src="./js/babel.min.js"></script>
+
+  <script type="text/babel">
+    // //普通函数中的this
+    // function add(a){
+    //   console.log(this)//undefined
+    //   return  a+1
+    // }
+    // add(1)
+    // //总：在JS中指向的是window,React改为了undefined
+
+
+    class Weather extends React.Component {
+      constructor() {
+        super()
+      }
+      render() {
+        return <h2 onClick={this.changeHot1}>哈哈</h2>
+        // return <h2 onClick={this.changeHot2}>哈哈</h2>
+        // return <h2 onClick={this.changeHot3}>哈哈</h2>
+      }
+      //写在Weather 的原型上
+      changeHot1() {
+        console.log(1, this) //undefined
+      }
+      //写在实例自己身上
+      changeHot2 = function () {
+        console.log(2, this)//undefined
+      }
+      //写在实例自己身上
+      changeHot3 = ()=>{
+        console.log(3, this)//实例，箭头函数没有自己的this,React无法改变this
+      }
+    }
+    ReactDOM.render(<Weather />, document.getElementById('box'))
+
+  </script>
+
+</body>
+
+</html>

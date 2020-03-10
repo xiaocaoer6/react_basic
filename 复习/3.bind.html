@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script type="text/javascript">
+
+
+    class Demo {
+      constructor() {
+        console.log('1')
+        this.test = this.test.bind(2)
+        
+      }
+      a=this
+      test() {
+        console.log('2')
+        console.log('test被调用了', this);
+      }
+      b=2
+    }
+
+    let d = new Demo()
+    console.log(d);
+
+    
+  </script>
+</body>
+
+</html>

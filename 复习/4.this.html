@@ -8,13 +8,20 @@
 </head>
 <body>
   <script>
-  // 三点运算符
-  	//{三点运算符}用于浅克隆一个对象
-	let obj = {name:'laoliu',age:18,sex:'女',demo:{a:1,b:2}}
-	let obj2 = {...obj} //复制obj中的键值对给obj2，这是浅复制(克隆)
-	obj.demo.a = 900
-	console.log(obj2); 
+  var obj = {
+  foo() {
+    console.log(this);
+  },
+  bar: () => {
+    console.log(this);
+  }
+}
 
+obj.foo() // {foo: ƒ, bar: ƒ}
+obj.bar() // window
+
+  
   </script>
+  
 </body>
 </html>
