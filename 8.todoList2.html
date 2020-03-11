@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="box"></div>
+  <script type="text/javascript" src="./js/react.development.js"></script>
+  <script type="text/javascript" src="./js/react-dom.development.js"></script>
+  <script type="text/javascript" src="./js/babel.min.js"></script>
+  <script type="text/javascript" src="./js/prop-types.js"></script>
+  
+  <script type="text/babel">
+  // 1.静态页面
+  // 2.动态显示初始化数据
+  // 3.交互
+  //App组件
+  class App extends React.Component{
+    state = {
+      todos:["吃饭","睡觉","打豆豆"]
+    }
+    addTodos = (data) => {
+      let oddtodos = this.state.todos
+      oddtodos.unshift(data)
+      //将改好的todos设置到App的state上
+      this.setState({todos:oddtodos})
+    }
+    render(){
+      let {todos} = this.state
+      return(
+        <div>
+          <h2>Simple Todo List</h2>
+          <Add count={todos.length} addTodos={this.addTodos}/>
+          <List todos={todos}/>
+        </div>
+      )
+    }
+  } 
+  //Add组件
+  class Add extends React.Component{
+    add = () => {
+      //获取value值
+      let value = this.input1.value
+      if(!value){
+        alert("请输入内容")
+        return
+      }
+      //value不为空,将其添加到APP的state中
+      this.props.addTodos(value)
+      // value=''这里不能改value,value是this.input1.value的赋值,改后this.input1.value不变,无法清空
+      this.input1.value = ''
+    }
+    render(){
+      let {count} = this.props
+      return(
+        <div>
+          <input ref={(currentNode) => {this.input1=currentNode}} type="text" placeholder="请输入内容"/>
+          <button onClick={this.add}>Add#{count}</button>
+        </div>
+      )
+    }
+  }  
+  //List组件
+  class List extends React.Component{
+    render(){
+      let {todos} = this.props
+      return(
+        <ul>
+          {todos.map((item,index) => {
+            return <li key={index}>{item}</li>
+          })}
+        </ul>
+      )
+    }
+  }
+  //渲染组件到页面
+  ReactDOM.render(<App/>,document.getElementById('box'))
+  </script>
+</body>
+</html>

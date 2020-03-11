@@ -50,39 +50,44 @@
     // ReactDOM.render(<Mycomponent/>,document.getElementById('box'))
 
 //2.回调的ref。利用rrf回调，往实例自身上添加属性，存储节点
-class Mycomponent extends React.Component {
-     handleClick = () => {
-       console.log(this)//实例身上有refs属性，值为对象
-       alert(this.input1.value)
-     }
-     handleBlur = (event) => {
-       alert(event.target.value)
-     }
-     render() {
-       return (
-         <div>
-           <input type="text" ref={(currentNode) => {this.input1 = currentNode}} placeholder = "请输入想要弹出的内容"/>&nbsp;
-           <input onClick = {this.handleClick} type="submit" value="点我提示左侧的输入内容"/>&nbsp;
-           <input onBlur = {this.handleBlur}  type="text" placeholder = "点我失去焦点"/>
-         </div>
-       )
-     }
+// class Mycomponent extends React.Component {
+//      handleClick = () => {
+//        console.log(this)//实例身上有refs属性，值为对象
+//        alert(this.input1.value)
+//      }
+//      handleBlur = (event) => {
+//        alert(event.target.value)
+//      }
+//      render() {
+//        return (
+//          <div>
+//            <input type="text" ref={(currentNode) => {this.input1 = currentNode}} placeholder = "请输入想要弹出的内容"/>&nbsp;
+//            <input onClick = {this.handleClick} type="submit" value="点我提示左侧的输入内容"/>&nbsp;
+//            <input onBlur = {this.handleBlur}  type="text" placeholder = "点我失去焦点"/>
+//          </div>
+//        )
+//      }
 
-   }
-   ReactDOM.render(<Mycomponent/>,document.getElementById('box'))
-   //容器ref
+//    }
+//    ReactDOM.render(<Mycomponent/>,document.getElementById('box'))
+  
+   //容器ref React.createRef()方法
    class Mycomponent extends React.Component {
+     myRef = React.createRef()//创建一个容器，将其挂在实例的myRef属性上
      handleClick = () => {
-       console.log(this)//实例身上有refs属性，值为对象
-       alert(this.input1.value)
+      //  console.log(this)//实例身上有refs属性，值为对象
+      //  alert(this.myRef.current.value)
+      const {current} = this.myRef
+      alert(current.value)
      }
      handleBlur = (event) => {
        alert(event.target.value)
      }
+     // ref={this.myRef}表示将这个用ref标记的节点放在容器里面
      render() {
        return (
          <div>
-           <input type="text" ref={(currentNode) => {this.input1 = currentNode}} placeholder = "请输入想要弹出的内容"/>&nbsp;
+           <input type="text" ref={this.myRef} placeholder = "请输入想要弹出的内容"/>&nbsp;
            <input onClick = {this.handleClick} type="submit" value="点我提示左侧的输入内容"/>&nbsp;
            <input onBlur = {this.handleBlur}  type="text" placeholder = "点我失去焦点"/>
          </div>

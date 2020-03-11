@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>组件的组合使用案例TODOLIST</title>
+</head>
+
+<body>
+  <div id="box"></div>
+  <script type="text/javascript" src="./js/react.development.js"></script>
+  <script type="text/javascript" src="./js/react-dom.development.js"></script>
+  <script type="text/javascript" src="./js/babel.min.js"></script>
+  <script type="text/javascript" src="./js/prop-types.js"></script>
+
+  <script type="text/babel">
+    //1.静态页面
+    //最外层组件APP
+    //2.交互，从绑定事件监听开始
+    class App extends React.Component {
+      //动态显示初始化数据，从数据源去读取显示,变化的 
+      state = {
+        todos: ["吃饭", "睡觉", "学习", "敲代码"],
+      }
+      //修改state的方法
+      addTodos = (data) => {
+        // this.setState = {}//这个是在state后面追加键值对，如果已经有了，就会覆盖
+        let { todos } = this.state
+        todos.unshift(data)
+        //将改变好的todos设置给App的state
+        this.setState({todos})
+        console.log(this.state)
+      }
+      render() {
+        let {todos} = this.state
+        return (
+          <div>
+            <h2>Simple Todo List</h2>
+            <Add count={todos.length} addTodos={this.addTodos} />
+            <List todos={todos} />
+          </div>
+        )
+      }
+    }
+    //输入框组件Add
+    class Add extends React.Component {
+      add = () => {
+        let { input1 } = this.refs
+        let value = input1.value
+        if (!value) {
+          alert("请输入内容")
+          return
+        }
+        //将value添加到APP组件，state的todos中
+        this.props.addTodos(value)
+        //清空输入
+        input1.value = ''
+      }
+      render() {
+        let { count } = this.props
+        return (
+          <div>
+            <input ref="input1" type="text" placeholder="请输入内容" />
+            <button onClick={this.add}>Add#{count}</button>
+          </div>
+        )
+      }
+    }
+    //列表组件List
+    class List extends React.Component {
+      render() {
+        let { todos } = this.props
+        return (
+          <ul>
+            {todos.map((item, index) => {
+              return <li key={index}>{item}</li>
+            })}
+          </ul>
+        )
+      }
+    }
+
+    //渲染组件到页面上
+    ReactDOM.render(<App />, document.getElementById('box'))
+  </script>
+</body>
+
+</html>
