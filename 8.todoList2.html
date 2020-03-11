@@ -53,12 +53,14 @@
       // value=''这里不能改value,value是this.input1.value的赋值,改后this.input1.value不变,无法清空
       this.input1.value = ''
     }
+    // <button onClick={this.add}>Add#{count}</button>
+    // <input onClick={this.add} type="submit" value={`Add#${count}`}/>
     render(){
       let {count} = this.props
       return(
         <div>
           <input ref={(currentNode) => {this.input1=currentNode}} type="text" placeholder="请输入内容"/>
-          <button onClick={this.add}>Add#{count}</button>
+          <input onClick={this.add} type="submit" value={`Add#${count}`}/>
         </div>
       )
     }

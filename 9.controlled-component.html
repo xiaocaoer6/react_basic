@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>受控组件和非受控组件</title>
+</head>
+
+<body>
+  <div id="box"></div>
+  <script type="text/javascript" src="./js/react.development.js"></script>
+  <script type="text/javascript" src="./js/react-dom.development.js"></script>
+  <script type="text/javascript" src="./js/babel.min.js"></script>
+  <script type="text/javascript" src="./js/prop-types.js"></script>
+
+  <script type="text/babel">
+   //案例需求,当点击提交按钮的时候,弹出框显示输入的内容
+
+    //非受控组件
+    // 组件中所有输入类的DOM，用户输入的数据不会存放在组件的state属性中。
+   
+    // class Forms extends React.Component {
+    //   handleSubmit = (event) => {
+    //     //阻止表单提交时跳转页面,即使action不写,也会刷新页面去找,找不到还是当前页面,但是会刷新页面,阻止刷新
+    //     //阻止默认行为
+    //     event.preventDefault()
+    //     let {input1,input2} = this
+    //     alert(`用户名是${input1.value},密码是${input2.value}`)
+    //   }
+    //   render() {
+    //     return (
+    //       <form action="" onSubmit={this.handleSubmit}>
+    //         用户名: <input ref={(currentNode) => {this.input1 = currentNode}} type="text" placeholder="请输入用户名" />&nbsp;
+    //         密码: <input ref={(currentNode) => {this.input2 = currentNode}} type="password" placeholder="请输入密码" />&nbsp;
+    //         <input type="submit"/>
+    //       </form>
+    //     )
+    //   }
+    // }
+    // ReactDOM.render(<Forms/>,document.getElementById('box'))
+
+    //受控组件
+    // 组件中所有输入类的DOM，随着用户的输入，会自动将数据维护到state中，就是受控组件。.没有使用ref
+    class Forms extends React.Component {
+      state = {
+        username:'',
+        password:''
+      }
+      handleSubmit = (event) => {
+        //阻止表单提交时跳转页面,即使action不写,也会刷新页面去找,找不到还是当前页面,但是会刷新页面,阻止刷新
+        //阻止默认行为
+        event.preventDefault()
+        let {username,password} = this.state
+        alert(`用户名是${username},密码是${password}`)
+      }
+      changeName = (event) => {
+        this.setState({username:event.target.value})
+      }     
+      changePWD = (event) => {
+        this.setState({password:event.target.value})
+      }
+      render() {
+        return (
+          <form action="" onSubmit={this.handleSubmit}>
+            用户名: <input onChange={this.changeName} type="text" placeholder="请输入用户名" />&nbsp;
+            密码: <input  onChange={this.changePWD} type="password" placeholder="请输入密码" />&nbsp;
+            <input type="submit"/>
+          </form>
+        )
+      }
+    }
+    ReactDOM.render(<Forms/>,document.getElementById('box'))
+
+  </script>
+</body>
+
+</html>
