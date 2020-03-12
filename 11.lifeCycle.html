@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+    <div id='box'></div>
+  <script type="text/javascript" src="./js/react.development.js"></script>
+  <script type="text/javascript" src="./js/react-dom.development.js"></script>
+  <script type="text/javascript" src="./js/babel.min.js"></script>
+
+  <script type="text/babel">
+	/* 
+		一、生命周期流程(旧):
+				a.	初始化阶段-----由ReactDOM.render()触发
+								* constructor()
+								* componentWillMount()
+								* render()
+								* componentDidMount()
+				b.	更新阶段-----由组件内部this.setSate()、父组件重新render触发、调用forceUpdate
+								* shouldComponentUpdate() ----- 强制更新不会调用这个钩子
+								* componentWillUpdate()
+								* render()
+								* componentDidUpdate()
+				c.	卸载组件-------由ReactDOM.unmountComponentAtNode(containerDom)触发
+								* componentWillUnmount()
+		二、两个最重要的钩子：
+				1.componentDidMount() --- 一般做：1.开启定时器、2.发送ajax请求获取数据、3.订阅消息 等等初始化操作。
+				2.componentWillUnmount() --- 一般做：1.关闭定时器、2.关闭一些连接(数据库、与服务器的长连接) 等等收尾操作。
+		 */
+
+  	/*
+		需求: 自定义组件
+			1. 让指定的文本做显示/隐藏的动画
+			2. 切换时间为2S,从1-0,每次切换0.1
+			3. 点击按钮从界面中移除组件界面（当前组件在页面上消失）
+    */
+    //定义组件
+    class Study extends React.Component{
+      state = {
+        opacity:1
+      }
+      componentDidMount(){
+        this.timer = setInterval(() => {
+          let {opacity} = this.state
+          // opacity = opacity-0.1
+          opacity -= 0.1
+          if(opacity<=0){opacity = 1}
+          this.setState({opacity})
+        }, 200);
+      }
+      death = () => {
+        ReactDOM.unmountComponentAtNode(document.getElementById('box'))
+      }
+      componentWillUnmount(){
+        clearInterval(this.timer)
+      }
+      render(){
+        return(
+          <div>
+            <h2 style={{opacity:this.state.opacity}}>React学不会怎么办？</h2>
+            <input  onClick={this.death} type="submit" value="不活了"/>
+          </div>
+        )
+      }
+    }
+    ReactDOM.render(<Study/>,document.getElementById('box'))
+
+  </script>
+</body>
+</html>
