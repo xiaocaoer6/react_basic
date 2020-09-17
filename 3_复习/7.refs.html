@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>输入东西弹框案例</title>
+</head>
+
+<body>
+  <div id="box"></div>
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+
+  <script type="text/babel">
+  // 根组件app 
+  class App extends React.Component {
+    // 在类中写赋值语句,会直接写入组件实例上
+    state  = {
+      toDos: ['你值得更好的', '你要乖乖的哦', '不要因为芝麻丢了西瓜好吗']
+    }
+    // 修改state的方法,state在哪里,修改state的方法就在哪里
+    changeState = (data) => {
+      let { toDos } = this.state
+      toDos.unshift(data)
+      this.setState({toDos})
+    }
+    render() {
+      return (
+        <div>
+          <h2>Simple Todo List</h2>
+          <Input count={this.state.toDos.length} changeState={this.changeState}/>
+          <List toDos={this.state.toDos} />
+        </div>
+      )
+    }
+  }
+
+  // input输入框组件
+  class Input extends React.Component {
+    add = () => {
+        let {changeState} = this.props
+        let inputValue = this.refs.input1.value
+        // 空,提示填写
+        if(!inputValue){
+          alert('请输入内容')
+          return
+        }
+
+        // 非空,添加到列表中
+        changeState(inputValue)
+        this.refs.input1.value = ''
+        
+      } 
+    handleKey = (event) => {
+      if(event.keyCode === 13) {
+        this.add()
+      }
+    }
+    render() {
+      return (
+        <div>
+          <input type="text" ref="input1" onKeyDown= {this.handleKey} placeholder="请输入代办事项"/>
+          <button onClick={this.add}>添加#{this.props.count} </button>
+        </div>
+      )
+    }
+  }
+
+  // 列表组件
+  class List extends React.Component {
+    render() {
+      let {toDos} = this.props
+      return (
+        <ul>
+          {
+            toDos.map((item,index)=>{
+              return <li key={index}>{item}</li>
+            })
+          }
+        </ul>
+      )
+    }
+  }
+
+  ReactDOM.render(<App/>, document.getElementById('box'))
+
+  </script>
+</body>
+
+</html>

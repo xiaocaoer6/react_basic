@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id='box'></div>
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+
+  <script type="text/babel">
+  // react 通过类定义组件
+  let that 
+  class Weather extends React.Component {
+    constructor(...params) {
+      super(...params)
+      // 继承构造器上的this是组件实例对象
+      console.log(this)
+      // 在组件的状态上写一个属性
+      this.state = {ishot: false}
+    }
+    render(){
+      console.log(this) //组件实例 state每变化一次,render函数就自动执行一次
+      that = this
+      return (
+        <h3 onClick={handleClick}>今天的天气很{this.state.ishot ? '炎热' : '凉爽'} </h3>
+      )
+    }
+  }
+
+  ReactDOM.render(<Weather/>, document.getElementById('box'))
+  function handleClick() {
+    let ishot = !that.state.ishot
+    that.setState({ishot})
+  }
+
+  </script>
+
+<!--  
+  ReactDOM.render 将虚拟dom渲染为真实dom的函数
+  虚拟DOM必须要包裹在一个最外层标签里，
+  style样式要写成对象的形式，双花括号
+  在标签里面写js要写的｛｝里面
+
+  map方法返回的是个数组，return的值会被放在一个数组里面
+  
+组件是包含结构样式行为的一整块，有Js，HTML，css,
+模块化只有js
+组件名首字母大写，react中标签都要闭合，可以自闭和
+
+
+-->
+<!-- 
+  跟vue的不同
+  遍历循环生成标签节点的时候，vue中是写出这个标签节点，利用v-for指令循环生成多个
+  react是利用数组遍历犯方法，让数组方法的返回值是标签，数组方法遍历循环跟v-for是一样的功能
+ -->
+</body>
+</html>

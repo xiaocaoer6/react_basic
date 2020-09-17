@@ -30,10 +30,8 @@
       }
       render() {
         return <h2 onClick={this.changeHot1}>哈哈</h2>
-        // return <h2 onClick={this.changeHot2}>哈哈</h2>
-        // return <h2 onClick={this.changeHot3}>哈哈</h2>
       }
-      //写在Weather 的原型上
+      //写在Weather 的原型上, 实例可以访问到
       changeHot1() {
         console.log(1, this) //undefined
       }

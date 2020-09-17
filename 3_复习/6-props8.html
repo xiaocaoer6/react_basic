@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>组件实例的第二大属性props</title>
+</head>
+
+<body>
+  <div id="box"></div>
+  <div id="box2"></div>
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+  <script type="text/javascript" src="../js/prop-types.js"></script>
+
+  <script type="text/babel">
+    let p1 = {
+      name:"小韩",
+      age:20,
+      gender:"男",
+      phone:"18519175753"
+    }
+    // 做了参数限制之后,如果没有按照限制来传参,页面会显示,但控制台会报错
+    class Person extends React.Component {
+      // 设置参数限制 静态参数类型
+      static propTypes = {
+        name:PropTypes.string.isRequired,
+        gender:PropTypes.string.isRequired,
+      }
+      // 设置参数默认值
+      static defaultProps = {
+        age: 18
+      }
+      render() {
+        const { name, age, gender } = this.props
+        return (
+          <ul>
+            <li>姓名: { name }</li>
+            <li>年龄: { age }</li>
+            <li>性别: { gender }</li>
+          </ul>
+        )
+      }
+    }
+
+    // 渲染组件到页面
+    ReactDOM.render(<Person name="小妹" gender="女"/>, document.getElementById('box2'))
+  </script>
+
+</body>
+
+</html>

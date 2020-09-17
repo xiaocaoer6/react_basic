@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>todelist案例</title>
+</head>
+
+<body>
+  <div id="box"></div>
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+  <script type="text/babel">
+  // 跟组件App
+  class App extends React.Component {
+    state = {
+      toDos: ['淡定', '从容', '温柔', '热情']
+    }
+    changeState = (data) => {
+      let toDos = this.state.toDos
+      toDos.unshift(data)
+      this.setState({toDos})
+    }
+    render() {
+      return (
+        <div>
+          <h2>你今天准备做的事情是什么呢?</h2>
+          <InputNode length={this.state.toDos.length} changeState={this.changeState} />
+          <List toDos={this.state.toDos}/>
+        </div>
+      )
+    }
+  }
+  
+  // input 组件
+  class InputNode extends React.Component {
+    add = () => {
+      let inputValue = this.refs.input1.value
+      if(!inputValue){
+        alert('请输入内容')
+        return
+      }
+      this.props.changeState(inputValue)
+      this.refs.input1.value = ''
+    }
+    handleKey = (event) => {
+      if(event.keyCode === 13) {
+        this.add()
+      }
+    }
+    render() {
+      let { length } = this.props
+      return(
+        <div>
+          <input ref="input1" type="text" onKeyDown={this.handleKey} placeholder="请输入你喜欢的内容"/>
+          <button onClick={this.add} >添加至列表 #{length}</button>
+        </div>
+      )
+    }
+  }
+
+  // 列表组件
+  class List extends React.Component {
+    render() {
+      let {toDos} = this.props
+      return (
+        <ul>
+        { toDos.map((item,index) => {
+          return (
+            <li key={index} >{item}</li>
+          )
+        })}
+        </ul>
+      )
+    }
+  }
+  ReactDOM.render(<App/>, document.getElementById('box'))
+  </script>
+</body>
+
+</html>

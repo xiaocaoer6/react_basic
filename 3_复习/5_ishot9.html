@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>案例中级实现-changeHot函数在组件内部，使用bind方法</title>
+</head>
+
+<body>
+  <div id='box'></div>
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+
+  <script type="text/babel">
+    class Weather extends React.Component {
+      constructor(...params) {
+        super(...params)
+        this.state = {isHot: false} 
+        // 写入change属性的时候,先执行等号右边,生成一个跟现有change方法一样,但this指向组件实例的函数,然后,复制给change,等于将原来的change覆盖掉了
+        this.change = this.change.bind(this)
+      }
+      render() {
+        return(
+          <h1 onClick={this.change}>今天天气很不错,非常的{this.state.isHot ? '炎热' : '凉爽'}</h1>
+        )
+      }
+      change() { //这个方法写在了组件实例上,但其this指向有问题
+        console.log(this) // 组件内自定义的this是undefined,需要改变this指向为组件实例
+        let isHot = !this.state.isHot
+        this.setState({isHot})
+      }
+    }
+
+    ReactDOM.render(<Weather/>, document.getElementById('box'))
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=
+  , initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    class Person {
+      constructor(name, age) {
+        // 接收外部传参,写入实例对象上
+        this.name = name
+        this.age = age
+        console.log(this)
+      }
+      eat() { // 实例对象用的属性
+        console.log(this)
+        console.log('少吃点')
+      }
+      a = 1
+    }
+    class Student extends Person {
+      constructor(name, age){
+        super(name, age) // 继承的时候写了构造器就一定要写super,super的参数即使构造器的参数
+      }
+    }
+
+    // 类跟构造函数一样,是用来生成是实例对象的,使用前面加new调用就可以了,
+    // 传递到参数会传给类中的constructor接收,做处理
+    let s1 = new Student()
+    console.log(s1)
+  </script>
+</body>
+</html>

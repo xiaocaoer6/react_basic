@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>案例需求,当点击提交按钮的时候,弹出框显示输入的内容</title>
+  <style>
+    body {
+      text-align: center;
+      background-color: antiquewhite;
+      margin-top: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="box"></div>
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+
+  <script type="text/babel">
+  //  受控组件，输入内DOM随着用户的输入,将内容自动维护到state中,这个 就是受控组件
+  // 反之,非受控组件,输入类DOM,随着用户的的输入,不会将内容自动维护到state中,非受控组价,
+  // 使用场景： 随着用户的输入去搜索内容
+  
+  // 组件
+
+  // 输入框的input事件,随着用户的输入触发
+  // change事件,失去焦点的时候触发
+  // class FormNode extends React.Component {
+  //   submit = (event) => {
+  //     event.preventDefault()
+  //     alert(`用户名是:${this.refs.phone.value}, 手机号是: ${this.refs.phone.value}`)
+  //   }
+  //   render() {
+  //     return (
+  //       <div class="all">
+  //        <form action="" >
+  //         <span>用户名：</span><input type="text" ref="name" palceholder="请输入您的用户名"/><br/><br/>
+  //         <span>手机号：</span><input type="text" ref="phone" palceholder="请输入您的手机号"/><br/><br/>
+  //         <button onClick={this.submit} >提交 submit</button>
+  //        </form>
+  //       </div>
+  //     )
+  //   }
+  // }
+
+  // ReactDOM.render(<FormNode/>, document.getElementById('box'))
+ 	/*
+		需求: 自定义组件
+			1. 让指定的文本做显示/隐藏的动画
+			2. 切换时间为2S,从1-0,每次切换0.1
+			3. 点击按钮从界面中移除组件界面（当前组件在页面上消失）
+    */
+
+    // 定义组件
+    class Study extends React.Component {
+      state = {
+        opacity: 1
+      }
+      componentDidMount() {
+        // 绑定定时器等
+        this.timer = setInterval(() => {
+          let {opacity} = this.state
+          opacity -= 0.1
+          if (opacity <= 0) {
+            opacity = 1
+          }
+          this.setState({opacity})
+        },200)
+      }
+      componentWillUnmount() {
+        // 即将卸载,进行收尾工作,清除定时器等
+        clearInterval(this.timer)
+      }
+      handleClick = () => {
+        ReactDOM.unmountComponentAtNode(document.getElementById('box'))
+      }
+      render() {
+        return (
+         <div>
+          <h1 style={{opacity: this.state.opacity}}>好好学习,天天向上好不好</h1>
+          <button onClick={this.handleClick} >宝贝加油吧</button>
+         </div>
+        )
+      }
+    }
+    ReactDOM.render(<Study/>, document.getElementById('box'))
+
+
+  </script>
+  <!-- 
+  // 初始化阶段 由ReactDOM.render()触发
+  constructor()
+  componentWillMount()
+  render()
+  componentDidMount()
+  // 更新阶段,由组件内部this.setState(),父组件重新render触发,调用forceUpdate
+  shouldComponentUpdate()
+  componentWillUpdate()
+  render()
+  componentDidUpdate()
+  // 卸载组件 又ReactDOM.unmountComponentAtNOde(办过容器)触发
+  componentWillUnmount()
+    
+  // 两个最终要的钩子
+  componentDidMount() 
+  组件已经挂载,一般做开启懂事起,发送ajax请求获取数据,订阅消息等初始化操作
+  componentWillUnmount()
+  组件即将卸载,一般做关闭定时器,关闭一些链接(数据库或者与服务器的长链接等等收尾操作)
+   -->
+
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="v1"></div>
+
+  <!-- react核心库 -->
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <!-- react操作dom的库 -->
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <!-- 解析jsx库 babel会将jsx解析为js-->
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+  
+  <!-- type="text/babel"必须写 -->
+  <script type="text/babel">
+    // let VDOM1 = <h1>Hello React</h1>
+    // ReactDOM.render(VDOM, document.getElementById('v1'))
+    // console.log(VDOM)
+    // console.log(VDOM instanceof Object)
+    // console.log(typeof VDOM)
+
+    // let me = '小草儿'
+    // let VDOM2  = (
+    //   <div>
+    //     <input type="text"  placeholder="请输入您想说的话"/>
+    //     <span style={{color: "green", fontSize: "30px", display:"block"}}>{me}说： 我好饿啊 </span>
+    //   </div>
+    // )
+    // ReactDOM.render(VDOM2, document.getElementById('v1'))
+
+    // let arr = ['vue', 'react', 'angular']
+    // let VDOM3 = (
+    //   <div>
+    //     <h2>前端JS框架</h2>
+    //     <ul>
+    //       {arr.map((item, index)=>{
+    //         return <li key={index}>{item}</li>
+    //       })}
+    //     </ul>
+    //   </div>
+    // )
+    // let add =  arr.map((item, index)=>{
+    //         return <li key={index}>{item}</li>
+    //       })
+    // console.log(add)
+
+    // ReactDOM.render(VDOM3, document.getElementById('v1'))
+
+    // 工厂函数定义组件
+    // function Demo (){
+    //   return <h2>我是工厂函数定义的简单组件</h2>
+    // }
+    // ReactDOM.render(<Demo/>, document.getElementById('v1'))
+
+    // 用类定义组件
+    class Demo1 extends React.Component {
+      // 定义的组件继承react核心组件
+      render() { //必须写render函数，其返回值就是组件的结构，HTML标签
+        return <h2>我是类定义的组件</h2>
+      }
+    }
+
+    ReactDOM.render(<Demo1/>, document.getElementById('v1'))
+
+  </script>
+
+<!--  
+  ReactDOM.render 将虚拟dom渲染为真实dom的函数
+  虚拟DOM必须要包裹在一个最外层标签里，
+  style样式要写成对象的形式，双花括号
+  在标签里面写js要写的｛｝里面
+
+  map方法返回的是个数组，return的值会被放在一个数组里面
+  
+组件是包含结构样式行为的一整块，有Js，HTML，css,
+模块化只有js
+组件名首字母大写，react中标签都要闭合，可以自闭和
+
+
+-->
+<!-- 
+  跟vue的不同
+  遍历循环生成标签节点的时候，vue中是写出这个标签节点，利用v-for指令循环生成多个
+  react是利用数组遍历犯方法，让数组方法的返回值是标签，数组方法遍历循环跟v-for是一样的功能
+ -->
+</body>
+</html>
